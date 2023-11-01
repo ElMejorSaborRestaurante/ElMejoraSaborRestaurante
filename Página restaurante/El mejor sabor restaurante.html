@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>El Mejor Sabor - Restaurante</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Enlaza a la biblioteca Owl Carousel -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #b8b5acd8;
+            text-align: center;
+            padding: 30px;
+            position: relative;
+        }
+
+        header h1 {
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            margin: 0;
+        }
+
+        header p {
+            text-align: center;
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            margin: 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: #993300;
+        }
+
+        nav {
+            background-color: #333;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        nav li {
+            display: inline;
+            margin: 10px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        section {
+            display: none;
+            margin: 20px;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            max-width: 160px;
+            height: auto;
+            animation: spin 10s infinite linear;
+            transform-origin: center;
+        }
+
+        .logo h1 {
+            color: #5f1e1e;
+        }
+
+        .menu-icon {
+            display: none;
+            cursor: pointer;
+            padding: 15px;
+        }
+
+        .menu {
+            float: right;
+        }
+
+        .menu ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .menu ul li {
+            display: flex;
+            align-items: center;
+            margin: 10px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        .menu-item-image {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        .menu-item-text {
+            flex: 2;
+        }
+
+        .menu-item img {
+            max-width: 100%;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #333;
+        }
+
+        .dropdown-content a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #444;
+        }
+
+        .razon {
+            text-align: center;
+            margin: 20px;
+        }
+
+        .razon img {
+            max-width: 1000px;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 10px;
+                height: auto;
+            }
+
+            .menu-icon {
+                display: block;
+            }
+
+            .menu ul {
+                display: none;
+                background-color: #333;
+                width: 100%;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                text-align: center;
+                z-index: 1;
+            }
+
+            .menu ul li {
+                display: block;
+                margin: 10px;
+            }
+
+            .menu ul.show {
+                display: block;
+            }
+
+            section {
+                display: block;
+            }
+        }
+        
+        @keyframes spin {
+            from {
+                transform: rotateY(0deg);
+            }
+            to {
+                transform: rotateY(360deg);
+            }
+        }
+        
+        .owl-carousel .item img {
+            max-width: 100%; /* Ajusta el tamaño máximo de la imagen */
+            height: auto;
+            border: 2px solid #333; /* Añadir un borde alrededor de las imágenes */
+            border-radius: 3px; /* Añadir bordes redondeados a las imágenes */
+        }
+
+        /* Más estilos específicos de Owl Carousel si es necesario */
+
+        .owl-carousel {
+            max-width: 1000px; /* Ajusta el ancho del carrusel según tus preferencias */
+            margin: 20px auto; /* Centra el carrusel horizontalmente */
+        }
+        section img {
+            transition: transform 0.3s;
+        }
+
+        section img:hover {
+            transform: scale(1.1);
+        }
+    </style>
+    
+     <script>
+        function toggleContent(contentId) {
+            var content = document.getElementById(contentId);
+            var sections = document.getElementsByTagName("section");
+            for (var i = 0; i < sections.length; i++) {
+                sections[i].style.display = "none";
+            }
+            content.style.display = "block";
+        }
+
+        function toggleMenu() {
+            var menu = document.querySelector(".menu ul");
+            menu.classList.toggle("show");
+        }
+
+        window.onload = function () {
+            toggleContent('razones-elegirnos');
+        }
+
+        $(document).ready(function () {
+            $(".owl-carousel").owlCarousel({
+                items: 1, // Número de elementos por vista
+                loop: true, // Repetir el carrusel
+                autoplay: true, // Reproducción automática
+                autoplayTimeout: 3000, // Intervalo de cambio en milisegundos
+                nav: true, // Flechas de navegación
+            });
+        });
+
+    </script>
+</head>
+
+<body>
+    
+    <header>
+        <div class="logo">
+            <img src="Imagenes_restaurante/logo.png" alt="Logo del restaurante">
+        </div>
+        <h1><a href="javascript:void(0);" onclick="toggleContent('razones-elegirnos')"><span style="color: #ffffff;">El Mejor Sabor</span></a></h1>
+        <p>¡Satisfaciendo corazones y paladares!</p>
+        <div class="menu-icon" onclick="toggleMenu()">
+            &#9776;
+        </div>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="javascript:void(0);" onclick="toggleContent('menu')">Menú</a></li>
+            <li><a href="javascript:void(0);" onclick="toggleContent('horarios')">Horarios</a></li>
+            <li><a href="javascript:void(0);" onclick="toggleContent('quienes-somos')">Quiénes Somos</a></li>
+            <li><a href="javascript:void(0);" onclick="toggleContent('ubicacion')">Ubicación</a></li>
+        </ul>
+    </nav>
+    </section>
+    <section id="razones-elegirnos">
+        <h2>¿Por qué debes elegirnos?</h2>
+        <p>Somos el restaurante "El Mejor Sabor" y estamos aquí para brindarte una experiencia culinaria excepcional. Hay muchas razones para elegirnos como tu lugar de comida favorito:</p>
+
+        <div class="razon">
+            <img src="Imagenes_restaurante/1.png" alt="Atención excepcional">
+            <h3>Atención excepcional</h3>
+            <p>Nuestro personal está dedicado a brindarte un servicio amable y atento en todo momento.</p>
+        </div>
+
+        <div class="razon">
+            <img src="Imagenes_restaurante/2.png" alt="Alta higiene y calidad">
+            <h3>Alta higiene y calidad</h3>
+            <p>Nos enorgullecemos de mantener los más altos estándares de higiene y calidad en todos nuestros platos.</p>
+        </div>
+
+        <div class="razon">
+            <img src="Imagenes_restaurante/3.png" alt="Excelentes precios">
+            <h3>Excelentes precios</h3>
+            <p>Ofrecemos deliciosos platos colombianos a precios asequibles para que todos puedan disfrutarlos.</p>
+        </div>
+    </section>
+    <section id="menu">
+        <h2>Menú</h2>
+        <p>Disfruta de nuestros deliciosos platos típicos de Colombia:</p>
+
+        <!-- ENTRADAS -->
+
+        <h2>Entradas</h2>
+
+
+<div class="menu-item">
+    <div class="menu-item-image">
+        <img src="Imagenes_restaurante/sancocho_res.png" alt="Sancocho de Res">
+    </div>
+    <div class="menu-item-text">
+        <h3>Sancocho de Res</h3>
+        <p>Este plato es un caldo sustancioso que combina huesitos de carne de res tierna con trozos de plátano, papa, maíz y otros ingredientes. Los huesitos de carne se cocinan a fuego lento en un caldo aromático, lo que lo hace sustancioso y lleno de sabor. El sancocho de res es reconfortante y lleno de ingredientes que lo convierten en un plato tradicional.</p>
+        <p>Precio: $4.000 COP</p>
+    </div>
+</div>
+
+<div class="menu-item">
+    <div class="menu-item-text">
+        <h3>Sancocho de Pollo</h3>
+        <p>Similar al sancocho de res, esta versión utiliza huesitos de pollo en lugar de huesitos de res. 
+            Éstos se cocinan en un caldo rico junto con plátano, papa, maíz y otros ingredientes. \\n
+            Es una opción más ligera en comparación con el sancocho de res, pero igual de deliciosa y reconfortante.</p>
+        <p>Precio: $4.000 COP</p>
+    </div>
+    <div class="menu-item-image">
+        <img src="Imagenes_restaurante/sopa_pollo.png" alt="Sancocho de Pollo">
+    </div>
+</div>
+
+<div class="menu-item">
+    <div class="menu-item-image">
+        <img src="Imagenes_restaurante/mondongo.png" alt="Mondongo">
+    </div>
+    <div class="menu-item-text">
+        <h3>Mondongo</h3>
+        <p>El mondongo es un guiso tradicional preparado con callo de res. Se cocina a fuego lento con arroz, verduras y condimentos que le dan un sabor único. Es un plato que se disfruta por su riqueza de sabor y su carácter reconfortante.</p>
+        <p>Precio: $4.000 COP</p>
+    </div>
+</div>
+
+<div class="menu-item">
+    <div class="menu-item-text">
+        <h3>Frijolada</h3>
+        <p>Un sabroso estofado de frijoles, generalmente cocido con huesitos sustanciosos. Un plato contundente y lleno de sabor.</p>
+        <p>Precio: $4.000 COP</p>
+    </div>
+    <div class="menu-item-image">
+        <img src="Imagenes_restaurante/frijolada.png" alt="Frijolada">
+    </div>
+</div>
+
+<div class="menu-item">
+    <div class="menu-item-image">
+        <img src="Imagenes_restaurante/sopa_cuscus.png" alt="Sopa de Cuscús">
+    </div>
+    <div class="menu-item-text">
+        <h3>Sopa de Cuscús</h3>
+        <p>Una sopa única preparada con cuscús, huesitos de carne y una mezcla de especias que le dan un sabor especial. Una delicia para el paladar.</p>
+        <p>Precio: $4.000 COP</p>
+    </div>
+</div>
+
+<div class="menu-item">
+    <div class="menu-item-text">
+        <h3>Sopa de Pasta</h3>
+        <p>Una sopa reconfortante con fideos, vegetales y huesitos de pollo, perfecta para calentar el alma en un día frío.</p>
+        <p>Precio: $4.000 COP</p>
+    </div>
+    <div class="menu-item-image">
+        <img src="Imagenes_restaurante/sopa_pasta.png" alt="Sopa de Pasta">
+    </div>
+</div>
+
+<div class="menu-item">
+    <div class="menu-item-image">
+        <img src="Imagenes_restaurante/sopa_verdura.png" alt="Sopa de Verduras">
+    </div>
+    <div class="menu-item-text">
+        <h3>Sopa de Verduras</h3>
+        <p>Una sopa nutritiva repleta de verduras frescas y condimentos, ideal para aquellos que buscan una opción más ligera.</p>
+        <p>Precio: $4.000 COP</p>
+    </div>
+</div>
+
+<div class="menu-item">
+    <div class="menu-item-text">
+        <h3>Sancocho de Pescado</h3>
+        <p>Una variante del sancocho con pescado, que agrega una dimensión diferente con sabores marinos. Perfecto para los amantes de los frutos del mar.</p>
+        <p>Precio: $4.000 COP</p>
+    </div>
+    <div class="menu-item-image">
+        <img src="Imagenes_restaurante/sancocho_pescado.png" alt="Sancocho de Pescado">
+    </div>
+</div>
+
+<!-- BANDEJAS -->
+<h2>Bandejas</h2>
+<div class="menu-item">
+    <div class="menu-item-image">
+        <img src="Imagenes_restaurante/" alt="Albóndigas Sudadas">
+    </div>
+    <div class="menu-item-text">
+        <h3>Albóndigas Sudadas</h3>
+        <p>Deliciosas albóndigas en una salsa de tu elección, servidas con arroz, principio, ensalada y tajada de maduro o patacón.</p>
+        <p>Precio: $10.000 COP (sola) / $12.000 COP (completo)</p>
+    </div>
+</div>
+
+<div class="menu-item">
+
+    <div class="menu-item-text">
+        <h3>Carne Sudada</h3>
+        <p>Tierna carne cocida a fuego lento en una sabrosa salsa, acompañada de arroz, principio, ensalada y tajada de maduro o patacón.</p>
+        <p>Precio: $10.000 COP (sola) / $12.000 COP (completo)</p>
+    </div>
+    <div class="menu-item-image">
+        <img src="imagen_carne_sudada.png" alt="Carne Sudada">
+    </div>
+</div>
+
+
+<!-- SOBREBARRIGA -->
+<div class="menu-item">
+    <div class "menu-item-image">
+        <img src="sobrebarriga.jpg" alt="Sobrebarriga">
+    </div>
+    <div class="menu-item-text">
+        <h3>Sobrebarriga</h3>
+        <p>$11.000 (Sola) / $13.000 (Completo)</p>
+        <p>Sabrosa sobrebarriga cocida en una salsa deliciosa, servida con arroz, principio, ensalada y tajada de maduro o patacón.</p>
+    </div>
+</div>
+
+<!-- COSTILLA AHUMADA -->
+<div class="menu-item">
+    <div class="menu-item-text">
+        <h3>Costilla Ahumada</h3>
+        <p>$11.000 (Sola) / $13.000 (Completo)</p>
+        <p>Costillas jugosas y ahumadas que se deshacen en la boca, servidas con arroz, principio, ensalada y legumbres.</p>
+    </div>
+
+    <div class="menu-item-image">
+        <img src="costilla_ahumada.jpg" alt="Costilla Ahumada">
+    </div>
+   
+</div>
+
+<!-- TILAPIA FRITA -->
+<div class="menu-item">
+    <div class="menu-item-image">
+        <img src="tilapia_frita.jpg" alt="Tilapia Frita">
+    </div>
+    <div class="menu-item-text">
+        <h3>Tilapia Frita</h3>
+        <p>$16.000 (Sola) / $18.000 (Completo)</p>
+        <p>Tilapia crujiente y dorada, acompañada de arroz, principio, ensalada y tajada de maduro o patacón.</p>
+    </div>
+</div>
+
+<!-- BOCACHICO FRITO O SUDADO -->
+<div class="menu-item">
+    <div class="menu-item-text">
+        <h3>Bocachico Frito o Sudado</h3>
+        <p>$16.000 (Sola) / $18.000 (Completo)</p>
+        <p>Pescado bocachico cocido en una salsa deliciosa, o si lo prefieres frito, servido con arroz, principio, ensalada y tajada de maduro o patacón.</p>
+    </div>
+    <div class="menu-item-image">
+        <img src="bocachico.jpg" alt="Bocachico Frito o Sudado">
+    </div>
+  
+</div>
+
+<!-- GULASH -->
+<div class="menu-item">
+    <div class="menu-item-image">
+        <img src="gulash.jpg" alt="Gulash">
+    </div>
+    <div class="menu-item-text">
+        <h3>Gulash</h3>
+        <p>$10.000 (Sola) / $12.000 (Completo)</p>
+        <p>Un clásico plato de carne estofada con especias, ideal para los amantes de los sabores intensos, servido con arroz, principio, ensalada y tajada de maduro o patacón.</p>
+    </div>
+</div>
+
+<!-- CARNES ASADAS DE RES, CERDO, PECHUGA -->
+<div class="menu-item">
+    <div class="menu-item-text">
+        <h3>Carnes Asadas de Res, Cerdo, Pechuga</h3>
+        <p>$10.000 (Sola) / $12.000 (Completo)</p>
+        <p>Una selección de carnes asadas a la parrilla para satisfacer todos los gustos, acompañadas de arroz, principio, ensalada y tajada de maduro o patacón.</p>
+    </div>
+    <div class="menu-item-image">
+        <img src="carnes_asadas.jpg" alt="Carnes Asadas">
+    </div>
+   
+</div>
+
+<!-- HÍGADO EN BISTEC -->
+<div class="menu-item">
+    <div class="menu-item-image">
+        <img src="higado_bistec.jpg" alt="Hígado en Bistec">
+    </div>
+    <div class="menu-item-text">
+        <h3>Hígado en Bistec</h3>
+        <p>$11.000 (Sola) / $13.000 (Completo)</p>
+        <p>Hígado cocinado en un bistec jugoso, acompañado de arroz, principio, ensalada y tajada de maduro o patacón.</p>
+    </div>
+</div>
+
+<!-- CARNE EN ROLLO -->
+<div class="menu-item">
+    <div class="menu-item-text">
+        <h3>Carne en Rollo</h3>
+        <p>$11.000 (Sola) / $13.000 (Completo)</p>
+        <p>Carne enrollada y cocida con especias, servida con arroz, principio, ensalada y tajada de maduro o patacón.</p>
+    </div>
+    <div class="menu-item-image">
+        <img src="carne_rollo.jpg" alt="Carne en Rollo">
+    </div>
+  
+</div>
+
+<!-- ADICIONALES -->
+
+<h2>Adiciones</h2>
+<div class="menu-item">
+    <div class="menu-item-image">
+        <img src="imagen_porcion_de_arroz.png" alt="Porción de Arroz">
+    </div>
+    <div class="menu-item-text">
+        <h3>Porción de Arroz</h3>
+        <p>Precio: $2.500 COP</p>
+    </div>
+</div>
+    </section>
+    <section id="horarios">
+        <h2>Horarios de Atención</h2>
+        <p>Nuestro restaurante está abierto de lunes a domingo, de 12 del mediodía a 5 de la tarde.</p>
+    </section>
+    <section id="quienes-somos">
+        <div class="owl-carousel">
+            <div class="item"><img src="Imagenes_restaurante/carrusel_1.png" alt="Imagen 1"></div>
+            <div class="item"><img src="Imagenes_restaurante/carrusel_2.png" alt="Imagen 2"></div>
+            <div class="item"><img src="Imagenes_restaurante/carrusel_3.png" alt="Imagen 3"></div>
+        </div>
+
+        <h2>Quiénes Somos</h2>
+        <h3>Misión</h3>
+        <p>Nuestra misión es brindar a nuestros clientes una experiencia culinaria única, destacando la riqueza de la gastronomía
+            colombiana a través de platos auténticos y sabores inolvidables.</p>
+        <h3>Visión</h3>
+        <p>Nuestra visión es convertirnos en el restaurante de referencia para aquellos que deseen disfrutar de la auténtica
+            cocina colombiana, manteniendo la excelencia en la calidad de nuestros platos y el servicio al cliente.</p>
+    </section>
+    
+    <section id="ubicacion">
+        <h2>Ubicación</h2>
+        <p>Estamos ubicados en la siguiente dirección: Carrera 13 No. 9-45, barrio San Rafael, el Cerrito, Valle</p>
+        <iframe width="425" height="350" src="https://www.openstreetmap.org/export/embed.html?bbox=-76.31572097539903%2C3.684901719522334%2C-76.31230920553209%2C3.687340156888916&amp;layer=mapnik" style="border: 1px solid black"></iframe><br /><small><a href="https://www.openstreetmap.org/#map=19/3.68612/-76.31402">Ver el mapa más grande</a></small>
+    </section>
+    <footer>
+        <p>&copy; 2023 El Mejor Sabor - Todos los derechos reservados</p>
+    </footer>
+</body>
+
+</html>
+
